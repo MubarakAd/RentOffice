@@ -1,7 +1,7 @@
 import React from "react";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
-import { SearchCheckIcon, SearchIcon } from "lucide-react";
+import {  SearchIcon } from "lucide-react";
 import { Button } from "./ui/button";
 const TopContent = ({ title }: { title: string }) => {
   return (

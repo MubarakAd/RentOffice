@@ -1,6 +1,4 @@
 "use client";
-
-import { TrendingUp } from "lucide-react";
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis } from "recharts";
 
 import {

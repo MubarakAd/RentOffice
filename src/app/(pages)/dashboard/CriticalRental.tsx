@@ -2,9 +2,9 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import {
   Table,
   TableBody,
-  TableCaption,
+  
   TableCell,
-  TableFooter,
+  
   TableHead,
   TableHeader,
   TableRow,
