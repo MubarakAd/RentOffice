@@ -32,7 +32,7 @@ const sidebarItems = [
     name: "Maintenance",
     url: "/maintenance",
     iconurl: "/icons/maintenance.svg",
-    activeiconurl: "/icons/activerent.svg",
+    activeiconurl: "/icons/activemaintenance.svg",
   },
   {
     name: "Report",
@@ -57,7 +57,7 @@ const Sidebar = () => {
     const path = usePathname();
   
     return (
-      <div className="flex flex-col py-[32px] pl-[32px] text-center gap-[30px] w-[348px] bg-[#253D8A] h-screen">
+      <div className="flex flex-col  py-[32px] pl-[32px] text-center gap-[30px] w-[348px] bg-[#253D8A] min-h-screen">
         <div className="flex flex-col text-center gap-[10px]">
           <p className="text-white text-xl font-semibold capitalize">
             digital office management
