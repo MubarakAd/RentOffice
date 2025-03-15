@@ -13,7 +13,7 @@ const OfficeAnalyticCards = ({
   className: string;
 }) => {
   return (
-    <div className="flex py-[30px]  w-[386px]  px-[30px] border-1 border-[#E9EBF3] rounded-[8px] gap-[10px] shadow-[4px_2px_4px_#DFE5F9]">
+    <div className="flex py-[30px]  w-[300px]  px-[30px] border-1 border-[#E9EBF3] rounded-[8px] gap-[10px] shadow-[4px_2px_4px_#DFE5F9]">
       <div className={`${className} p-3 rounded-[15px]`}>
         <Image src={iconsurl} alt="" width={45} height={45} />{" "}
       </div>

@@ -32,7 +32,7 @@ const sidebarItems = [
     name: "Maintenance",
     url: "/maintenance",
     iconurl: "/icons/maintenance.svg",
-    activeiconurl: "/icons/activerent.svg",
+    activeiconurl: "/icons/activemaintenance.svg",
   },
   {
     name: "Report",
