@@ -29,7 +29,15 @@ import Image from "next/image";
 
 import { useState } from "react";
 import TableData from "./TableData";
-
+ 
+interface Office {
+    id: string;
+    OfficeNO: string;
+    Area: string;
+    Floor:string;
+    Status:string
+    // Add other properties based on your actual data
+  }
 const ManageOffice = () => {
     const objectschema=z.object({
         OfficeNO: z.string().min(1, "Office No is required"),
@@ -38,7 +46,7 @@ const ManageOffice = () => {
         Status: z.enum(["available", "yearly", "all"], { message: "Invalid status" })
     })
   const [tableData, setTableData] = useState(TableData);
-  const [editOffice, setEditOffice] = useState<any>(null);
+  const [editOffice, setEditOffice] = useState<Office|null>(null);
   const [formData, setFormData] = useState({
     OfficeNO: "",
     Area: "",
@@ -46,7 +54,7 @@ const ManageOffice = () => {
     Status: "",
   });
 
-  const handleEditClick = (office: any) => {
+  const handleEditClick = (office: Office) => {
     setEditOffice(office);
     setFormData(office); // Prefill the form
   };
@@ -62,7 +70,7 @@ const ManageOffice = () => {
   const handleUpdate = () => {
     setTableData((prev) =>
       prev.map((item) =>
-        item.id === editOffice.id ? { ...item, ...formData } : item
+        item.id === editOffice?.id ? { ...item, ...formData } : item
       )
     );
     
