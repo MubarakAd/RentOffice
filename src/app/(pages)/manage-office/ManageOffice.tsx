@@ -1,5 +1,5 @@
 "use client";
-import { z } from "zod";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -36,15 +36,10 @@ interface Office {
     Area: string;
     Floor:string;
     Status:string
-    // Add other properties based on your actual data
+  
   }
 const ManageOffice = () => {
-    const objectschema=z.object({
-        OfficeNO: z.string().min(1, "Office No is required"),
-        Area: z.string().min(1, "Area is required"),
-        Floor: z.string().min(1, "Floor No is required"),
-        Status: z.enum(["available", "yearly", "all"], { message: "Invalid status" })
-    })
+    
   const [tableData, setTableData] = useState(TableData);
   const [editOffice, setEditOffice] = useState<Office|null>(null);
   const [formData, setFormData] = useState({
@@ -56,11 +51,12 @@ const ManageOffice = () => {
 
   const handleEditClick = (office: Office) => {
     setEditOffice(office);
-    setFormData(office); // Prefill the form
+    setFormData(office); 
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    console.log("form data is",formData)
   };
 
   const handleSelectChange = (value: string) => {
@@ -74,22 +70,25 @@ const ManageOffice = () => {
       )
     );
     
-    setEditOffice(null); // Close dialog
+    setEditOffice(null); 
   };
   const handleAdd = () => {
-    const result =objectschema.safeParse(formData)
-    if (!result.success){
-        console.log(result.error.format()); // Log errors
-        return;
+   
+    if (!formData.OfficeNO || !formData.Area || !formData.Floor || !formData.Status) {
+      alert("Please fill in all fields before adding an office.");
+      return;
     }
-  const newOffice = {
-    id: Date.now().toString(), // Convert ID to string
-    ...formData,
+  
+    setTableData((prev) => [
+      ...prev,
+      { id: Date.now().toString(), ...formData },
+    ]);
+  
+    setFormData({ OfficeNO: "", Area: "", Floor: "", Status: "" }); 
+    setOpen(false); 
   };
+  
 
-  setTableData((prev) => [...prev, newOffice]); // Append new entry to the array
-  setFormData({ OfficeNO: "", Area: "", Floor: "", Status: "" }); // Reset form
-};
 
   const [open, setOpen] = useState(false);
   return (
@@ -132,7 +131,7 @@ const ManageOffice = () => {
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
               <Button
-                onClick={handleAdd}
+                onClick={()=>{setOpen(!open)}}
                 variant="outline"
                 className="bg-[#253D8A] p-[15px] hover:bg-[#253D8A] text-white hover:text-white"
               >
@@ -218,9 +217,7 @@ const ManageOffice = () => {
                 </div>
                 <div className="flex justify-end">
                   <Button
-                    onClick={() => {
-                      setOpen(!open);
-                    }}
+                    onClick={handleAdd}
                     variant="outline"
                     className="bg-[#253D8A] p-[15px] hover:bg-[#253D8A] text-white hover:text-white"
                   >
