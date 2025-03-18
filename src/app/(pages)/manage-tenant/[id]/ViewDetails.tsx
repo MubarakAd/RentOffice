@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import {  ViewDetailsTab } from "./ViewDetailsTab";
 const ViewDetails = () => {
   const { id } = useParams();
   const data = TableData.filter((t) => t.id === id);
@@ -77,6 +78,7 @@ const ViewDetails = () => {
             </div>
           ))}
         </div>
+        <ViewDetailsTab/>
       </div>
     </div>
   );
