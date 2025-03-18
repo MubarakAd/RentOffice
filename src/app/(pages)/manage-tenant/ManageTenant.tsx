@@ -69,7 +69,11 @@ const ManageTenant = () => {
   const handleEdit = (item: Tenant) => {
     setEditTenant(item);
     setFormData(item);
+
   };
+
+  
+
   const handleUpdate = () => {
     setTenantData((prev) =>
       prev.map((item) =>
@@ -113,7 +117,14 @@ const ManageTenant = () => {
             <DialogTrigger asChild>
               <Button
                 onClick={() => {
-                  setOpen(!open);
+                  setOpen(!open)
+                  setFormData({
+                    FullName: "",
+                    Email: "",
+                    Phone: "",
+                    OfficeNo: "",
+                  });
+                  ;
                 }}
                 variant="outline"
                 className="bg-[#253D8A] p-[15px] hover:bg-[#253D8A] text-white hover:text-white"
