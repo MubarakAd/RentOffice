@@ -32,6 +32,8 @@ interface Tenant {
 }
 const ManageTenant = () => {
   const [tenantData, setTenantData] = useState(TableData);
+  const [filteredResults, setFilteredResults] = useState<Tenant[]>([]);
+  const [search,setSearch]=useState('')
   const [formData, setFormData] = useState({
     FullName: "",
     Email: "",
@@ -71,6 +73,21 @@ const ManageTenant = () => {
     setFormData(item);
 
   };
+  const handleSearchChange=(e: React.ChangeEvent<HTMLInputElement>)=>{
+    setSearch(e.target.value)
+    if (!search.trim()) {
+      setFilteredResults(tenantData);
+      return;
+    }
+  
+    const results = tenantData.filter((items) =>
+      items.FullName.toLowerCase().includes(search.toLowerCase())
+    );
+  
+    setFilteredResults(results);
+  }
+
+  
 
   
 
@@ -98,11 +115,13 @@ const ManageTenant = () => {
         <div className="flex justify-between pb-[10px]  border-b-1 border-[#E6E6E6]">
           <div className="flex gap-6">
             <div className="flex  items-center gap-[8px] px-[15px]  bg-white border-1 border-[#B0B0B0] rounded-[8px]">
-              <Button className=" bg-white hover:bg-white">
+              <Button  className=" bg-white hover:bg-white">
                 <SearchIcon className="w-[15px] h-[15px] text-[#8A8A8A] font-bold" />{" "}
               </Button>
               <Input
                 type="search"
+                value={search}
+                onChange={handleSearchChange}
                 placeholder="Search"
                 className="bg-white text-[#8A8A8A] font-semibold"
                 style={{
@@ -246,7 +265,7 @@ const ManageTenant = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {tenantData.map((item) => (
+          {(search ? filteredResults : tenantData).map((item) => (
               <TableRow
                 key={item.id}
                 className="border-l-1 border-r-1 border-b-1 border-[#E6E6E6] p-[10px]"
