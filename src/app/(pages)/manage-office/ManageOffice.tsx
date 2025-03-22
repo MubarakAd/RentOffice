@@ -29,19 +29,17 @@ import Image from "next/image";
 
 import { useState } from "react";
 import TableData from "./TableData";
- 
+
 interface Office {
-    id: string;
-    OfficeNO: string;
-    Area: string;
-    Floor:string;
-    Status:string
-  
-  }
+  id: string;
+  OfficeNO: string;
+  Area: string;
+  Floor: string;
+  Status: string;
+}
 const ManageOffice = () => {
-    
   const [tableData, setTableData] = useState(TableData);
-  const [editOffice, setEditOffice] = useState<Office|null>(null);
+  const [editOffice, setEditOffice] = useState<Office | null>(null);
   const [formData, setFormData] = useState({
     OfficeNO: "",
     Area: "",
@@ -51,12 +49,12 @@ const ManageOffice = () => {
 
   const handleEditClick = (office: Office) => {
     setEditOffice(office);
-    setFormData(office); 
+    setFormData(office);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    console.log("form data is",formData)
+    console.log("form data is", formData);
   };
 
   const handleSelectChange = (value: string) => {
@@ -69,26 +67,28 @@ const ManageOffice = () => {
         item.id === editOffice?.id ? { ...item, ...formData } : item
       )
     );
-    
-    setEditOffice(null); 
+
+    setEditOffice(null);
   };
   const handleAdd = () => {
-   
-    if (!formData.OfficeNO || !formData.Area || !formData.Floor || !formData.Status) {
+    if (
+      !formData.OfficeNO ||
+      !formData.Area ||
+      !formData.Floor ||
+      !formData.Status
+    ) {
       alert("Please fill in all fields before adding an office.");
       return;
     }
-  
+
     setTableData((prev) => [
       ...prev,
       { id: Date.now().toString(), ...formData },
     ]);
-  
-    setFormData({ OfficeNO: "", Area: "", Floor: "", Status: "" }); 
-    setOpen(false); 
-  };
-  
 
+    setFormData({ OfficeNO: "", Area: "", Floor: "", Status: "" });
+    setOpen(false);
+  };
 
   const [open, setOpen] = useState(false);
   return (
@@ -121,7 +121,7 @@ const ManageOffice = () => {
                   <SelectValue placeholder="Select period" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">All</SelectItem>
+                  <SelectItem  value="all">All</SelectItem>
                   <SelectItem value="available">Available</SelectItem>
                   <SelectItem value="yearly">Yearly</SelectItem>
                 </SelectContent>
@@ -131,7 +131,9 @@ const ManageOffice = () => {
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
               <Button
-                onClick={()=>{setOpen(!open)}}
+                onClick={() => {
+                  setOpen(!open);
+                }}
                 variant="outline"
                 className="bg-[#253D8A] p-[15px] hover:bg-[#253D8A] text-white hover:text-white"
               >
@@ -147,13 +149,13 @@ const ManageOffice = () => {
               <div className="flex flex-col  gap-6 py-4">
                 <div className="flex gap-[50px] items-center ">
                   <div className="flex flex-col gap-[15px] w-full">
-                    <p className="text-[#333333] font-semibold">
+                    <p className="text-[#333333] text-sm font-semibold">
                       Office No <span className="text-[#FF3B30]">*</span>
                     </p>
                     <Input
-                       name="OfficeNO"
-                       value={formData.OfficeNO}
-                       onChange={handleChange}
+                      name="OfficeNO"
+                      value={formData.OfficeNO}
+                      onChange={handleChange}
                       placeholder="Office No "
                       className="bg-white w-full text-[#B0B0B0]  font-semibold"
                       style={{
@@ -164,13 +166,13 @@ const ManageOffice = () => {
                   </div>
 
                   <div className="flex flex-col gap-[15px] w-full">
-                    <p className="text-[#333333] font-semibold">
+                    <p className="text-[#333333] text-sm font-semibold">
                       Area <span className="text-[#FF3B30]">*</span>
                     </p>
                     <Input
-                     name="Area"
-                     value={formData.Area}
-                     onChange={handleChange}
+                      name="Area"
+                      value={formData.Area}
+                      onChange={handleChange}
                       placeholder="5 * 4 "
                       className="bg-white w-full text-[#B0B0B0]  font-semibold"
                       style={{
@@ -182,13 +184,13 @@ const ManageOffice = () => {
                 </div>
                 <div className="flex gap-[50px] items-center ">
                   <div className="flex flex-col gap-[15px] w-full">
-                    <p className="text-[#333333] font-semibold">
+                    <p className="text-[#333333] text-sm font-semibold">
                       Floor No <span className="text-[#FF3B30]">*</span>
                     </p>
                     <Input
-                     name="Floor"
-                     value={formData.Floor}
-                     onChange={handleChange}
+                      name="Floor"
+                      value={formData.Floor}
+                      onChange={handleChange}
                       placeholder="3 "
                       className="bg-white w-full text-[#B0B0B0]  font-semibold"
                       style={{
@@ -199,11 +201,13 @@ const ManageOffice = () => {
                   </div>
 
                   <div className="flex flex-col gap-[15px] w-full">
-                    <p className="text-[#333333] font-semibold">
+                    <p className="text-[#333333] text-sm font-semibold">
                       Status <span className="text-[#FF3B30]">*</span>
                     </p>
-                    <Select defaultValue={formData.Status}
-                                onValueChange={handleSelectChange} >
+                    <Select
+                      defaultValue={formData.Status}
+                      onValueChange={handleSelectChange}
+                    >
                       <SelectTrigger className="w-full">
                         <SelectValue placeholder="Select period" />
                       </SelectTrigger>
@@ -231,39 +235,39 @@ const ManageOffice = () => {
         <Table>
           <TableHeader>
             <TableRow className="px-[10px] border-1 border-[#E6E6E6] rounded-tl-[5px] rounded-tr-[5px] bg-[#E9ECF3]">
-              <TableHead className="text-center font-semibold text-black ">
+              <TableHead className="text-center text-sm font-semibold text-black ">
                 Office No
               </TableHead>
-              <TableHead className="text-center font-semibold text-black ">
+              <TableHead className="text-center text-sm font-semibold text-black ">
                 Area
               </TableHead>
-              <TableHead className="text-center font-semibold text-black ">
+              <TableHead className="text-center text-sm font-semibold text-black ">
                 Floor
               </TableHead>
-              <TableHead className="text-center font-semibold text-black ">
+              <TableHead className="text-center text-sm font-semibold text-black ">
                 Status
               </TableHead>
-              <TableHead className="text-center font-semibold text-black ">
+              <TableHead className="text-center text-sm font-semibold text-black ">
                 Actions
               </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {tableData.map((items,index) => (
+            {tableData.map((items, index) => (
               <TableRow
                 key={index}
                 className="border-l-1 border-r-1 border-b-1 border-[#E6E6E6] p-[10px]"
               >
-                <TableCell className="text-center text-sm text-[#8A8A8A] font-semibold ">
+                <TableCell className="text-center text-xs text-[#8A8A8A]  ">
                   {items.OfficeNO}
                 </TableCell>
-                <TableCell className="text-center text-sm text-[#8A8A8A] font-semibold ">
+                <TableCell className="text-center text-xs text-[#8A8A8A]  ">
                   {items.Area}
                 </TableCell>
-                <TableCell className="text-center text-sm text-[#8A8A8A] font-semibold ">
+                <TableCell className="text-center text-xs text-[#8A8A8A]  ">
                   {items.Floor}
                 </TableCell>
-                <TableCell className="text-center text-sm text-[#8A8A8A] font-semibold ">
+                <TableCell className="text-center text-xs text-[#8A8A8A]  ">
                   {items.Status}
                 </TableCell>
                 <TableCell className="flex justify-center gap-[30px]">
@@ -288,7 +292,7 @@ const ManageOffice = () => {
                         <div className="flex flex-col gap-6 py-4">
                           <div className="flex gap-6">
                             <div className="flex flex-col w-full">
-                              <p>
+                              <p className="text-sm font-semibold">
                                 Office No{" "}
                                 <span className="text-red-500">*</span>
                               </p>
@@ -299,7 +303,7 @@ const ManageOffice = () => {
                               />
                             </div>
                             <div className="flex flex-col w-full">
-                              <p>
+                              <p className="text-sm font-semibold">
                                 Area <span className="text-red-500">*</span>
                               </p>
                               <Input
@@ -311,7 +315,7 @@ const ManageOffice = () => {
                           </div>
                           <div className="flex gap-6">
                             <div className="flex flex-col w-full">
-                              <p>
+                              <p className="text-sm font-semibold">
                                 Floor No <span className="text-red-500">*</span>
                               </p>
                               <Input
@@ -321,7 +325,7 @@ const ManageOffice = () => {
                               />
                             </div>
                             <div className="flex flex-col w-full">
-                              <p>
+                              <p className="text-sm font-semibold">
                                 Status <span className="text-red-500">*</span>
                               </p>
                               <Select

@@ -14,16 +14,16 @@ const PaymentHistory = () => {
       <Table>
       <TableHeader>
         <TableRow className="px-[10px] py-10 border border-[#E6E6E6] rounded-tl-[5px] rounded-tr-[5px] bg-[#E9ECF3]">
-          <TableHead className="text-center font-semibold text-black">
+          <TableHead className="text-center text-sm font-semibold text-black">
             Due Date
           </TableHead>
-          <TableHead className="text-center font-semibold text-black">
+          <TableHead className="text-center text-sm font-semibold text-black">
             Paid Date
           </TableHead>
-          <TableHead className="text-center font-semibold text-black">
+          <TableHead className="text-center text-sm font-semibold text-black">
             Amount
           </TableHead>
-          <TableHead className="text-center font-semibold text-black">
+          <TableHead className="text-center text-sm font-semibold text-black">
             Status
           </TableHead>
         </TableRow>
@@ -34,16 +34,16 @@ const PaymentHistory = () => {
             key={items.id}
             className="border-l border-r border-b border-[#E6E6E6] min-h-[100px]"
           >
-            <TableCell className="text-center text-sm text-[#8A8A8A] font-semibold ">
+            <TableCell className="text-center text-xs text-[#8A8A8A]  ">
               {items.dueDate}
             </TableCell>
-            <TableCell className="text-center text-sm text-[#8A8A8A] font-semibold ">
+            <TableCell className="text-center text-xs text-[#8A8A8A]  ">
               {items.paidDate}
             </TableCell>
-            <TableCell className="text-center text-sm text-[#8A8A8A] font-semibold ">
+            <TableCell className="text-center text-xs text-[#8A8A8A]  ">
               {items.amount}
             </TableCell>
-            <TableCell className="text-center text-sm">
+            <TableCell className="text-center text-xs">
               <div className="flex justify-center">
                 <div
                   className={`w-fit p-[5px] px-[15px] rounded-[8px] 

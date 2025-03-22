@@ -18,7 +18,7 @@ const OfficeAnalyticCards = ({
         <Image src={iconsurl} alt="" width={45} height={45} />{" "}
       </div>
       <div className="flex flex-col items-center gap-[10px]">
-        <p className="text-[#B0B0B0] font-semibold">{title}</p>
+        <p className="text-[#B0B0B0] text-sm font-semibold">{title}</p>
         <p className="text-black font-semibold text-xl">{amount}</p>
       </div>
     </div>

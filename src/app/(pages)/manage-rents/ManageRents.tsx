@@ -51,10 +51,12 @@ const ManageRents = () => {
     EndDate: "",
     MonthlyAmount: "",
   });
-  const [open, setOpen] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
+  const [open,setOpen]=useState(false)
   const handleEditClick = (items: Rental) => {
     setFormData(items);
     setEditRents(items)
+    setOpenEdit(!openEdit)
 
   }
   const handleUpdate = () => {
@@ -74,6 +76,7 @@ const ManageRents = () => {
       MonthlyAmount: "",
     });
     setEditRents(null)
+    setOpenEdit(!openEdit)
   };
   const handleSearch=(e:React.ChangeEvent<HTMLInputElement>)=>{
     setSearchRents(e.target.value)
@@ -165,7 +168,7 @@ const ManageRents = () => {
               <div className="flex flex-col gap-6 py-4">
                 <div className="flex gap-6">
                   <div className="flex flex-col w-full">
-                    <p>
+                    <p className="text-sm font-semibold">
                       Office <span className="text-red-500">*</span>
                     </p>
                     <Select
@@ -185,7 +188,7 @@ const ManageRents = () => {
                     </Select>
                   </div>
                   <div className="flex flex-col w-full">
-                    <p>
+                  <p className="text-sm font-semibold">
                       Tenant<span className="text-red-500">*</span>
                     </p>
                     <Select
@@ -210,7 +213,7 @@ const ManageRents = () => {
                 </div>
                 <div className="flex gap-6">
                   <div className="flex flex-col w-full">
-                    <p>
+                  <p className="text-sm font-semibold">
                       Start Date <span className="text-red-500">*</span>
                     </p>
                     <Input
@@ -221,7 +224,7 @@ const ManageRents = () => {
                     />
                   </div>
                   <div className="flex flex-col w-full">
-                    <p>
+                  <p className="text-sm font-semibold">
                       End Date <span className="text-red-500">*</span>
                     </p>
                     <Input
@@ -233,7 +236,7 @@ const ManageRents = () => {
                   </div>
                 </div>
                 <div className=" w-1/2">
-                  <p>
+                <p className="text-sm font-semibold">
                     Monthly Amount<span className="text-red-500">*</span>
                   </p>
                   <Input
@@ -245,7 +248,7 @@ const ManageRents = () => {
                 <div className="flex justify-end">
                   <Button
                     onClick={handleAdd}
-                    className="bg-blue-600 text-white"
+                    className="bg-[#253D8A] p-[15px] hover:bg-[#253D8A] px-10 text-white"
                   >
                     Add
                   </Button>
@@ -258,22 +261,22 @@ const ManageRents = () => {
       <Table>
         <TableHeader>
           <TableRow className="px-[10px] border-1 border-[#E6E6E6] rounded-tl-[5px] rounded-tr-[5px] bg-[#E9ECF3]">
-            <TableHead className="text-center font-semibold text-black ">
+            <TableHead className="text-center text-sm font-semibold text-black ">
               Office No
             </TableHead>
-            <TableHead className="text-center font-semibold text-black ">
+            <TableHead className="text-center text-sm font-semibold text-black ">
               Tenant Name
             </TableHead>
-            <TableHead className="text-center font-semibold text-black ">
+            <TableHead className="text-center text-sm font-semibold text-black ">
               Start Date
             </TableHead>
-            <TableHead className="text-center font-semibold text-black ">
+            <TableHead className="text-center text-sm font-semibold text-black ">
               End Date
             </TableHead>
-            <TableHead className="text-center font-semibold text-black ">
+            <TableHead className="text-center text-sm font-semibold text-black ">
               Monthly Amount
             </TableHead>
-            <TableHead className="text-center font-semibold text-black ">
+            <TableHead className="text-center text-sm font-semibold text-black ">
               Actions
             </TableHead>
           </TableRow>
@@ -284,19 +287,19 @@ const ManageRents = () => {
               key={index}
               className="border-l-1 border-r-1 border-b-1 border-[#E6E6E6] p-[10px]"
             >
-              <TableCell className="text-center text-sm text-[#8A8A8A] font-semibold ">
+              <TableCell className="text-center text-xs text-[#8A8A8A]  ">
                 {items.OfficeNo}
               </TableCell>
-              <TableCell className="text-center text-sm text-[#8A8A8A] font-semibold ">
+              <TableCell className="text-center text-xs text-[#8A8A8A]  ">
                 {items.TenantName}
               </TableCell>
-              <TableCell className="text-center text-sm text-[#8A8A8A] font-semibold ">
+              <TableCell className="text-center text-xs text-[#8A8A8A]  ">
                 {items.StartDate}
               </TableCell>
-              <TableCell className="text-center text-sm text-[#8A8A8A] font-semibold ">
+              <TableCell className="text-center text-xs text-[#8A8A8A]  ">
                 {items.EndDate}
               </TableCell>
-              <TableCell className="text-center text-sm text-[#8A8A8A] font-semibold ">
+              <TableCell className="text-center text-xs text-[#8A8A8A]  ">
                 {items.MonthlyAmount}
               </TableCell>
               <TableCell className="flex justify-center gap-[30px]">
@@ -304,6 +307,7 @@ const ManageRents = () => {
                   {" "}
                   <Button
                     variant={"ghost"}
+                  
                     className=" flex gap-[10px] rounded-[8px] px-[10px] border-1 border-[#00DC32] py-[5px]"
                   >
                     <Image
@@ -312,13 +316,13 @@ const ManageRents = () => {
                       width={25}
                       height={25}
                     />
-                    <span className="text-[#00DC32] text-sm font-semibold">
+                    <span className="text-[#00DC32] text-sm ">
                       View
                     </span>
                   </Button>
                 </Link>
 
-                <Dialog>
+                <Dialog >
                   <DialogTrigger asChild>
                     <button
                       onClick={() => {
@@ -343,7 +347,7 @@ const ManageRents = () => {
                     <div className="flex flex-col gap-6 py-4">
                       <div className="flex gap-6">
                         <div className="flex flex-col w-full">
-                          <p>
+                          <p className="text-sm font-semibold">
                             Office <span className="text-red-500">*</span>
                           </p>
                           <Select defaultValue="004">
@@ -358,7 +362,7 @@ const ManageRents = () => {
                           </Select>
                         </div>
                         <div className="flex flex-col w-full">
-                          <p>
+                        <p className="text-sm font-semibold">
                             Tenant<span className="text-red-500">*</span>
                           </p>
                           <Select defaultValue={items.TenantName}>
@@ -377,20 +381,20 @@ const ManageRents = () => {
                       </div>
                       <div className="flex gap-6">
                         <div className="flex flex-col w-full">
-                          <p>
+                        <p className="text-sm font-semibold">
                             Start Date <span className="text-red-500">*</span>
                           </p>
                           <Input type="date" name="StartDate" value={formData.StartDate} onChange={handleChange} />
                         </div>
                         <div className="flex flex-col w-full">
-                          <p>
+                        <p className="text-sm font-semibold">
                             End Date <span className="text-red-500">*</span>
                           </p>
                           <Input type="date" name="EndDate" value={formData.EndDate} onChange={handleChange} />
                         </div>
                       </div>
                       <div className=" w-1/2">
-                        <p>
+                      <p className="text-sm font-semibold">
                           Monthly Amount<span className="text-red-500">*</span>
                         </p>
                         <Input name="MonthlyAmount" value={formData.MonthlyAmount} onChange={handleChange} />

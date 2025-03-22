@@ -160,7 +160,7 @@ const ManageTenant = () => {
               <div className="flex flex-col  gap-6 py-4">
                 <div className="flex gap-[50px] items-center ">
                   <div className="flex flex-col gap-[15px] w-full">
-                    <p className="text-[#333333] font-semibold">
+                    <p className="text-[#333333] text-sm font-semibold">
                       FullName <span className="text-[#FF3B30]">*</span>
                     </p>
                     <Input
@@ -178,7 +178,7 @@ const ManageTenant = () => {
                   </div>
 
                   <div className="flex flex-col gap-[15px] w-full">
-                    <p className="text-[#333333] font-semibold">
+                  <p className="text-[#333333] text-sm font-semibold">
                       Email <span className="text-[#FF3B30]">*</span>
                     </p>
                     <Input
@@ -197,7 +197,7 @@ const ManageTenant = () => {
                 </div>
                 <div className="flex gap-[50px] items-center ">
                   <div className="flex flex-col gap-[15px] w-full">
-                    <p className="text-[#333333] font-semibold">
+                  <p className="text-[#333333] text-sm font-semibold">
                       Phone <span className="text-[#FF3B30]">*</span>
                     </p>
                     <Input
@@ -214,7 +214,7 @@ const ManageTenant = () => {
                   </div>
 
                   <div className="flex flex-col gap-[15px] w-full">
-                    <p className="text-[#333333] font-semibold">
+                  <p className="text-[#333333] text-sm font-semibold">
                       OfficeNo <span className="text-[#FF3B30]">*</span>
                     </p>
                     <Input
@@ -247,19 +247,19 @@ const ManageTenant = () => {
         <Table>
           <TableHeader>
             <TableRow className="px-[10px] border border-[#E6E6E6] rounded-tl-[5px] rounded-tr-[5px] bg-[#E9ECF3]">
-              <TableHead className="text-center font-semibold text-black">
+              <TableHead className="text-center text-sm font-semibold text-black">
                 Full Name
               </TableHead>
-              <TableHead className="text-center font-semibold text-black">
+              <TableHead className="text-center text-sm font-semibold text-black">
                 Email
               </TableHead>
-              <TableHead className="text-center font-semibold text-black">
+              <TableHead className="text-center text-sm font-semibold text-black">
                 Phone
               </TableHead>
-              <TableHead className="text-center font-semibold text-black">
+              <TableHead className="text-center text-sm font-semibold text-black">
                 Office No
               </TableHead>
-              <TableHead className="text-center font-semibold text-black">
+              <TableHead className="text-center text-sm font-semibold text-black">
                 Actions
               </TableHead>
             </TableRow>
@@ -270,16 +270,16 @@ const ManageTenant = () => {
                 key={item.id}
                 className="border-l-1 border-r-1 border-b-1 border-[#E6E6E6] p-[10px]"
               >
-                <TableCell className="text-center text-sm text-[#8A8A8A] font-semibold ">
+                <TableCell className="text-center text-xs text-[#8A8A8A]  ">
                   {item.FullName}
                 </TableCell>
-                <TableCell className="text-center text-sm text-[#8A8A8A] font-semibold ">
+                <TableCell className="text-center text-xs text-[#8A8A8A]  ">
                   {item.Email}
                 </TableCell>
-                <TableCell className="text-center text-sm text-[#8A8A8A] font-semibold ">
+                <TableCell className="text-center text-xs text-[#8A8A8A]  ">
                   {item.Phone}
                 </TableCell>
-                <TableCell className="text-center text-sm text-[#8A8A8A] font-semibold ">
+                <TableCell className="text-center text-xs text-[#8A8A8A]  ">
                   {item.OfficeNo}
                 </TableCell>
                 <TableCell className="flex justify-center gap-[30px]">

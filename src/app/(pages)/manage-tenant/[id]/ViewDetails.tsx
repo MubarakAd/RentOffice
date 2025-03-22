@@ -38,8 +38,8 @@ const ViewDetails = () => {
                     height={30}
                   />
                   <div className="flex flex-col p-[10px] gap-[10px]">
-                    <p className="text-[#8A8A8A] font-semibold">Full Name</p>
-                    <p className="text-sm text-black font-semibold">
+                    <p className="text-[#8A8A8A] text-sm font-semibold">Full Name</p>
+                    <p className="text-xs text-black ">
                       {item.FullName}
                     </p>
                   </div>
@@ -52,8 +52,8 @@ const ViewDetails = () => {
                     height={30}
                   />
                   <div className="flex flex-col p-[10px] gap-[10px]">
-                    <p className="text-[#8A8A8A] font-semibold">Phone Number</p>
-                    <p className="text-sm text-black font-semibold">
+                    <p className="text-[#8A8A8A] text-sm font-semibold">Phone Number</p>
+                    <p className="text-xs text-black ">
                       {item.Phone}
                     </p>
                   </div>
@@ -68,8 +68,8 @@ const ViewDetails = () => {
                     height={30}
                   />
                   <div className="flex flex-col p-[10px] gap-[10px]">
-                    <p className="text-[#8A8A8A] font-semibold">Email</p>
-                    <p className="text-sm text-black font-semibold">
+                    <p className="text-[#8A8A8A] text-sm font-semibold">Email</p>
+                    <p className="text-xs text-black ">
                       {item.Email}
                     </p>
                   </div>
