@@ -18,9 +18,16 @@ import {
   UserCircle,
   LogOut,
 } from "lucide-react"
+type SidebarItem = {
+  name: string
+  url: string
+  icon: React.ElementType
+  iconurl: string
+  activeiconurl: string
+  children?: { name: string; url: string }[]
+}
 
-
-const sidebarItems = [
+const sidebarItems: SidebarItem[] = [
   {
     name: "Dashboard",
     url: "/dashboard",
@@ -122,10 +129,10 @@ const Sidebar = () => {
   }
 
   
-  const isActive = (item: any) => {
+  const isActive = (item: SidebarItem) => {
     if (path === item.url) return true
     if (item.children) {
-      return item.children.some((child: any) => path === child.url)
+      return item.children.some((child) => path === child.url)
     }
     return false
   }
