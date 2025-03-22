@@ -41,6 +41,8 @@ interface Rental {
 const ManageRents = () => {
   const [rentsTable, setRentsTable] = useState(RentsData);
   const [editRents,setEditRents]=useState<Rental|null>(null)
+  const [searchRents,setSearchRents]=useState("")
+  const [filteredResults,setFilteredResults]=useState<Rental[]>([])
   const [formData, setFormData] = useState({
     id:"",
     OfficeNo: "",
@@ -53,8 +55,9 @@ const ManageRents = () => {
   const handleEditClick = (items: Rental) => {
     setFormData(items);
     setEditRents(items)
-    console.log("form data is", formData);
-  };const handleUpdate = () => {
+
+  }
+  const handleUpdate = () => {
     setRentsTable((prev) =>
       prev.map((item) =>
         item.id === editRents?.id ? { ...item, ...formData } : item
@@ -70,8 +73,21 @@ const ManageRents = () => {
       EndDate: "",
       MonthlyAmount: "",
     });
+    setEditRents(null)
   };
-  
+  const handleSearch=(e:React.ChangeEvent<HTMLInputElement>)=>{
+    setSearchRents(e.target.value)
+    if (!searchRents.trim()){
+      setFilteredResults(rentsTable)
+      return
+    }
+
+    const results=rentsTable.filter((items)=>(
+      items.TenantName.toLowerCase().includes(searchRents.toLowerCase())
+
+    ))
+    setFilteredResults(results)
+  }
   const handleSelectChange = (value: string, name: string) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
@@ -93,8 +109,9 @@ const ManageRents = () => {
 
     setRentsTable((prev) => [
       ...prev,
-      { ...formData,id:Date.now.toString() },
+      { ...formData,id:Date.now().toString() },
     ]);
+    RentsData.push({...formData,id:Date.now().toString()})
     setFormData({
         id:"",
       OfficeNo: "",
@@ -103,6 +120,7 @@ const ManageRents = () => {
       EndDate: "",
       MonthlyAmount: "",
     });
+   
     setOpen(!open);
   };
   return (
@@ -119,8 +137,7 @@ const ManageRents = () => {
               </Button>
               <Input
                 type="search"
-                //   value={search}
-                //   onChange={handleSearchChange}
+                onChange={handleSearch}
                 placeholder="Search"
                 className="bg-white text-[#8A8A8A] font-semibold"
                 style={{
@@ -236,7 +253,7 @@ const ManageRents = () => {
               </div>
             </DialogContent>
           </Dialog>
-        </div>
+     
       </div>
       <Table>
         <TableHeader>
@@ -262,9 +279,9 @@ const ManageRents = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {rentsTable.map((items) => (
+        {(searchRents ? filteredResults : rentsTable).map((items,index) => (
             <TableRow
-              key={items.id}
+              key={index}
               className="border-l-1 border-r-1 border-b-1 border-[#E6E6E6] p-[10px]"
             >
               <TableCell className="text-center text-sm text-[#8A8A8A] font-semibold ">
@@ -283,7 +300,7 @@ const ManageRents = () => {
                 {items.MonthlyAmount}
               </TableCell>
               <TableCell className="flex justify-center gap-[30px]">
-                <Link href={`/manage-tenant/${items.id}`}>
+                <Link href={`/manage-rents/${items.id}`}>
                   {" "}
                   <Button
                     variant={"ghost"}
@@ -404,6 +421,7 @@ const ManageRents = () => {
           ))}
         </TableBody>
       </Table>
+    </div>
     </div>
   );
 };

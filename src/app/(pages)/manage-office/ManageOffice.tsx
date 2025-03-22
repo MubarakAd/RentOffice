@@ -249,9 +249,9 @@ const ManageOffice = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {tableData.map((items) => (
+            {tableData.map((items,index) => (
               <TableRow
-                key={items.id}
+                key={index}
                 className="border-l-1 border-r-1 border-b-1 border-[#E6E6E6] p-[10px]"
               >
                 <TableCell className="text-center text-sm text-[#8A8A8A] font-semibold ">
