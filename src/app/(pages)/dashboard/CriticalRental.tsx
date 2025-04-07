@@ -66,16 +66,16 @@ const CriticalRental = () => {
         <Table className="h-[330px]">
           <TableHeader>
             <TableRow className="text-center px-[10px] border-1 border-[#E6E6E6] rounded-tl-[5px] rounded-tr-[5px] bg-[#E9ECF3]">
-              <TableHead className="text-sm text-black font-semibold">
+              <TableHead className="text-xs text-black ">
                 Tenant
               </TableHead>
-              <TableHead className="text-sm text-black font-semibold">
+              <TableHead className="text-xs text-black ">
                 Office No
               </TableHead>
-              <TableHead className="text-sm text-black font-semibold">
+              <TableHead className="text-xs text-black ">
                 Start date
               </TableHead>
-              <TableHead className="text-sm text-black font-semibold">
+              <TableHead className="text-xs text-black ">
                 End date
               </TableHead>
             </TableRow>

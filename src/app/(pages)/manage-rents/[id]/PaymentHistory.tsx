@@ -1,40 +1,17 @@
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-  } from "@/components/ui/table";
-  import React from "react";
-  
-  const MaintenanceData = [
-    {
-      id: "1",
-      createdAt: "2023-10-01",
-      description: "Description Description Description",
-      officeNumber: "101",
-      status: "Resolved",
-    },
-    {
-      id: "2",
-      createdAt: "2023-10-01",
-      description: "Description Description Description",
-      officeNumber: "101",
-      status: "InProgress",
-    },
-    {
-      id: "3",
-      createdAt: "2023-10-01",
-      description: "Description Description Description",
-      officeNumber: "101",
-      status: "Open",
-    },
-  ];
-
-const MaintenanceRequest = () => {
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import React from "react";
+const paymenHistoryData = [
+  { id: "1", dueDate: "2023-10-01", paidDate: "2023-10-01", amount: "150000", status:"Paid" },
+  { id: "2", dueDate: "2023-10-01", paidDate: "2023-10-01", amount: "150000",status:"unPaid" },
+  { id: "3", dueDate: "2023-10-01", paidDate: "2023-10-01", amount: "150000",status:"overDue" },
+];
+const PaymentHistory = () => {
   return (
-    <Table>
+    <div className="flex flex-col gap-5 pb-4">
+      <div className="p-[10px] border-b-1 border-[#E6E6E6]">
+        <p className="text-xl text-black font-semibold">Rent Payment History</p>
+      </div>
+      <Table>
       <TableHeader>
         <TableRow className="px-[10px] py-10 border border-[#E6E6E6] rounded-tl-[5px] rounded-tr-[5px] bg-[#E9ECF3]">
           <TableHead className="text-center text-sm font-semibold text-black">
@@ -52,31 +29,31 @@ const MaintenanceRequest = () => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {MaintenanceData.map((items) => (
+        {paymenHistoryData.map((items) => (
           <TableRow
             key={items.id}
             className="border-l border-r border-b border-[#E6E6E6] min-h-[100px]"
           >
             <TableCell className="text-center text-xs text-[#8A8A8A]  ">
-              {items.createdAt}
+              {items.dueDate}
             </TableCell>
             <TableCell className="text-center text-xs text-[#8A8A8A]  ">
-              {items.description}
+              {items.paidDate}
             </TableCell>
             <TableCell className="text-center text-xs text-[#8A8A8A]  ">
-              {items.officeNumber}
+              {items.amount}
             </TableCell>
             <TableCell className="text-center text-xs">
               <div className="flex justify-center">
                 <div
                   className={`w-fit p-[5px] px-[15px] rounded-[8px] 
         ${
-          items.status === "Resolved"
+          items.status === "Paid"
             ? "bg-[#28A74526]"
-            : items.status === "InProgress"
-            ? "bg-[#007BFF26]"
-            : items.status === "Open"
+            : items.status === "unPaid"
             ? "bg-[#FFA50026]"
+            : items.status === "overDue"
+            ? "bg-[#FF000026]"
             : ""
         }`}
                 >
@@ -87,8 +64,9 @@ const MaintenanceRequest = () => {
           </TableRow>
         ))}
       </TableBody>
-    </Table>
-  )
-}
+      </Table>
+    </div>
+  );
+};
 
-export default MaintenanceRequest
+export default PaymentHistory;
