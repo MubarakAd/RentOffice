@@ -117,9 +117,9 @@ const sidebarItems: SidebarItem[] = [
 const Sidebar = () => {
   const path = usePathname()
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({
-   
     "/expense-tracker": path.startsWith("/expense-tracker"),
   })
+  const [isCollapsed, setIsCollapsed] = useState(false)
 
   const toggleExpand = (url: string) => {
     setExpandedItems((prev) => ({
@@ -143,10 +143,22 @@ const Sidebar = () => {
   }
 
   return (
-    <div className="flex flex-col py-[32px] pl-[32px] text-center gap-[30px] w-[348px] bg-[#253D8A] min-h-screen">
+    <div className={`flex flex-col py-[32px] pl-[32px] text-center gap-[30px] bg-[#253D8A] min-h-screen transition-all duration-300
+      ${isCollapsed ? 'w-[80px]' : 'w-[348px]'} 
+      fixed md:relative z-50`}>
       <div className="flex flex-col text-center gap-[10px]">
-        <p className="text-white text-xl font-semibold capitalize">Digital Office Management</p>
-        <p className="text-white text-xl font-semibold capitalize">System</p>
+        {!isCollapsed && (
+          <>
+            <p className="text-white text-xl font-semibold capitalize">Digital Office Management</p>
+            <p className="text-white text-xl font-semibold capitalize">System</p>
+          </>
+        )}
+        <button 
+          onClick={() => setIsCollapsed(!isCollapsed)}
+          className="absolute right-2 top-4 text-white"
+        >
+          {isCollapsed ? '→' : '←'}
+        </button>
       </div>
       <div className="flex flex-col gap-[15px]">
         {sidebarItems.map((item, index) => (
@@ -154,7 +166,6 @@ const Sidebar = () => {
             <div
               className={`${
                 item.url!=="/expense-tracker" ?(isActive(item) ? "bg-white" : "bg-[#253D8A]"):"bg-[#253D8A]"
-                
               } py-[10px] px-[15px] rounded-tl-[8px] rounded-bl-[8px] flex items-center gap-5 ${
                 item.children ? "cursor-pointer" : ""
               }`}
@@ -166,26 +177,29 @@ const Sidebar = () => {
                 <item.icon className={`${isActive(item) ? "text-[#253D8A]" : "text-white"}`} size={24} />
               )}
 
-              {item.children ? (
-                <div className="flex items-center justify-between w-full">
-                  <span className={`font-semibold  ${  item.url!=="/expense-tracker" ?(isActive(item) ? "text-white" : "text-[#253D8A]"):"text-white"}`}>
-                    {item.name}
-                  </span>
-                  {expandedItems[item.url] ? (
-                    <ChevronUp className="ml-2 text-white"  size={18} />
+              {!isCollapsed && (
+                <>
+                  {item.children ? (
+                    <div className="flex items-center justify-between w-full">
+                      <span className={`font-semibold  ${  item.url!=="/expense-tracker" ?(isActive(item) ? "text-white" : "text-[#253D8A]"):"text-white"}`}>
+                        {item.name}
+                      </span>
+                      {expandedItems[item.url] ? (
+                        <ChevronUp className="ml-2 text-white"  size={18} />
+                      ) : (
+                        <ChevronDown className="ml-2 text-white" size={18} />
+                      )}
+                    </div>
                   ) : (
-                    <ChevronDown className="ml-2 text-white" size={18} />
+                    <Link href={item.url} className={`font-semibold ${isActive(item) ? "text-[#253D8A]" : "text-white"}`}>
+                      {item.name}
+                    </Link>
                   )}
-                </div>
-              ) : (
-                <Link href={item.url} className={`font-semibold ${isActive(item) ? "text-[#253D8A]" : "text-white"}`}>
-                  {item.name}
-                </Link>
+                </>
               )}
             </div>
 
-         
-            {item.children && expandedItems[item.url] && (
+            {!isCollapsed && item.children && expandedItems[item.url] && (
               <div className="ml-[40px] flex flex-col  gap-[10px] mt-[5px]">
                 {item.children.map((child, childIndex) => (
                   <Link

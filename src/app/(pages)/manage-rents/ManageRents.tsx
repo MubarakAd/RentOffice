@@ -43,6 +43,8 @@ const ManageRents = () => {
   const [editRents,setEditRents]=useState<Rental|null>(null)
   const [searchRents,setSearchRents]=useState("")
   const [filteredResults,setFilteredResults]=useState<Rental[]>([])
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
   const [formData, setFormData] = useState({
     id:"",
     OfficeNo: "",
@@ -126,6 +128,23 @@ const ManageRents = () => {
    
     setOpen(!open);
   };
+
+  // Calculate pagination
+  const totalItems = searchRents ? filteredResults.length : rentsTable.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentItems = (searchRents ? filteredResults : rentsTable).slice(startIndex, endIndex);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const handleItemsPerPageChange = (value: string) => {
+    setItemsPerPage(Number(value));
+    setCurrentPage(1); // Reset to first page when changing items per page
+  };
+
   return (
     <div className="px-6">
       <div className="flex flex-col gap-5 px-5 pb-5 border-1 border-[#E6E6E6] rounded-[8px]">
@@ -149,6 +168,23 @@ const ManageRents = () => {
                   boxShadow: "none",
                 }}
               />
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-[#8A8A8A]">View:</span>
+              <Select
+                value={itemsPerPage.toString()}
+                onValueChange={handleItemsPerPageChange}
+              >
+                <SelectTrigger className="w-[80px]">
+                  <SelectValue placeholder="Per page" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="5">5</SelectItem>
+                  <SelectItem value="10">10</SelectItem>
+                  <SelectItem value="20">20</SelectItem>
+                  <SelectItem value="50">50</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
           <Dialog open={open} onOpenChange={setOpen}>
@@ -282,7 +318,7 @@ const ManageRents = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-        {(searchRents ? filteredResults : rentsTable).map((items,index) => (
+        {currentItems.map((items,index) => (
             <TableRow
               key={index}
               className="border-l-1 border-r-1 border-b-1 border-[#E6E6E6] p-[10px]"
@@ -425,6 +461,37 @@ const ManageRents = () => {
           ))}
         </TableBody>
       </Table>
+      <div className="flex justify-between items-center mt-4">
+        <div className="text-sm text-[#8A8A8A]">
+          Showing {startIndex + 1} to {Math.min(endIndex, totalItems)} of {totalItems} entries
+        </div>
+        <div className="flex gap-2">
+          <Button
+            variant="outline"
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            Previous
+          </Button>
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+            <Button
+              key={page}
+              variant={currentPage === page ? "default" : "outline"}
+              onClick={() => handlePageChange(page)}
+              className={`${currentPage === page ? "bg-[#253D8A] text-white" : "bg-white text-[#8A8A8A]"}`}
+            >
+              {page}
+            </Button>
+          ))}
+          <Button
+            variant="outline"
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+          >
+            Next
+          </Button>
+        </div>
+      </div>
     </div>
     </div>
   );
