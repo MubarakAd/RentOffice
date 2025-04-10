@@ -6,21 +6,19 @@ import { PaymentSummery } from "./PaymentSummery";
 import MaintenanceOverview from "./MaintenanceOverview";
 import CriticalRental from "./CriticalRental";
 
-
 const page = () => {
   return (
-    <div className="flex flex-col gap-6 ">
+    <div className="flex flex-col gap-6">
       <TopContent title="Welcome Back!" />
-      <div className="px-[32px]  pb-[30px] ">
-        <div className="flex gap-[15px]  p-[10px]">
-          {/* left */}
-          <div className="flex flex-col w-full gap-5">
-            {/* top */}
+      <div className="px-4 md:px-8 lg:px-[32px] pb-[30px]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-[15px] p-[10px]">
+          {/* left column */}
+          <div className="flex flex-col gap-4 lg:gap-5">
             <OfficeAnalytic />
-            {/* bottom */}
             <PaymentSummery />
           </div>
-          <div className="flex flex-col w-3/4 gap-5">
+          {/* right column */}
+          <div className="flex flex-col gap-4 lg:gap-5">
             <MaintenanceOverview />
             <CriticalRental />
           </div>

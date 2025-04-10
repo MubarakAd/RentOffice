@@ -17,19 +17,19 @@ export function ViewDetailsTab() {
       <TabsList className="flex w-fit border-b border-[#E6E6E6] px-5 pt-5 bg-transparent">
         <TabsTrigger
           value="rental"
-          className=" text-[#333333] font-semibold shadow-none rounded-none border-b-2  border-transparent px-4 py-4 bg-white data-[state=active]:border-b-[#253D8A] data-[state=active]:font-medium data-[state=active]:text-[#253D8A]"
+          className=" text-[#333333] text-sm font-semibold shadow-none rounded-none border-b-2  border-transparent px-4 py-4 bg-white data-[state=active]:border-b-[#253D8A] data-[state=active]:font-medium data-[state=active]:text-[#253D8A]"
         >
           Rental Information
         </TabsTrigger>
         <TabsTrigger
           value="payment"
-          className=" text-[#333333] font-semibold rounded-none  border-b-2  border-transparent px-4 py-4 bg-white data-[state=active]:border-b-[#253D8A]"
+          className=" text-[#333333] text-sm font-semibold rounded-none  border-b-2  border-transparent px-4 py-4 bg-white data-[state=active]:border-b-[#253D8A]"
         >
           Payment history
         </TabsTrigger>
         <TabsTrigger
           value="maintenance"
-          className="text-[#333333] font-semibold   rounded-none  border-b-2  border-transparent px-4 py-4 bg-white data-[state=active]:border-b-[#253D8A]"
+          className="text-[#333333] text-sm font-semibold   rounded-none  border-b-2  border-transparent px-4 py-4 bg-white data-[state=active]:border-b-[#253D8A]"
         >
           Maintenance request
         </TabsTrigger>

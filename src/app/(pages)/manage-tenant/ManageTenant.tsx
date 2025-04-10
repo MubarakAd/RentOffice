@@ -20,8 +20,14 @@ import {
 import TableData from "./TableData";
 import Image from "next/image";
 import { useState } from "react";
-
 import Link from "next/link";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface Tenant {
   id: string;
@@ -30,10 +36,13 @@ interface Tenant {
   Phone: string;
   OfficeNo: string;
 }
+
 const ManageTenant = () => {
   const [tenantData, setTenantData] = useState(TableData);
   const [filteredResults, setFilteredResults] = useState<Tenant[]>([]);
-  const [search,setSearch]=useState('')
+  const [search, setSearch] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
   const [formData, setFormData] = useState({
     FullName: "",
     Email: "",
@@ -42,6 +51,23 @@ const ManageTenant = () => {
   });
   const [editTenant, setEditTenant] = useState<Tenant | null>(null);
   const [open, setOpen] = useState(false);
+
+  // Calculate pagination
+  const totalItems = search ? filteredResults.length : tenantData.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentItems = (search ? filteredResults : tenantData).slice(startIndex, endIndex);
+
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+  };
+
+  const handleItemsPerPageChange = (value: string) => {
+    setItemsPerPage(Number(value));
+    setCurrentPage(1); // Reset to first page when changing items per page
+  };
+
   const handleAdd = () => {
     if (
       !formData.Email ||
@@ -130,6 +156,23 @@ const ManageTenant = () => {
                   boxShadow: "none",
                 }}
               />
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-[#8A8A8A]">View:</span>
+              <Select
+                value={itemsPerPage.toString()}
+                onValueChange={handleItemsPerPageChange}
+              >
+                <SelectTrigger className="w-[80px]">
+                  <SelectValue placeholder="Per page" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="5">5</SelectItem>
+                  <SelectItem value="10">10</SelectItem>
+                  <SelectItem value="20">20</SelectItem>
+                  <SelectItem value="50">50</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
           <Dialog open={open} onOpenChange={setOpen}>
@@ -265,7 +308,7 @@ const ManageTenant = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-          {(search ? filteredResults : tenantData).map((item) => (
+            {currentItems.map((item) => (
               <TableRow
                 key={item.id}
                 className="border-l-1 border-r-1 border-b-1 border-[#E6E6E6] p-[10px]"
@@ -396,6 +439,39 @@ const ManageTenant = () => {
             ))}
           </TableBody>
         </Table>
+
+        {/* Pagination Controls */}
+        <div className="flex justify-between items-center mt-4">
+          <div className="text-sm text-[#8A8A8A]">
+            Showing {startIndex + 1} to {Math.min(endIndex, totalItems)} of {totalItems} entries
+          </div>
+          <div className="flex gap-2">
+            <Button
+              variant="outline"
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </Button>
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <Button
+                key={page}
+                variant={currentPage === page ? "default" : "outline"}
+                onClick={() => handlePageChange(page)}
+                className={`${currentPage === page ? "bg-[#253D8A] text-white" : "bg-white text-[#8A8A8A]"}`}
+              >
+                {page}
+              </Button>
+            ))}
+            <Button
+              variant="outline"
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
+              Next
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   );
