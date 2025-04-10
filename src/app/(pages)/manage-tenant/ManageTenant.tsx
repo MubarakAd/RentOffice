@@ -99,19 +99,20 @@ const ManageTenant = () => {
     setFormData(item);
 
   };
-  const handleSearchChange=(e: React.ChangeEvent<HTMLInputElement>)=>{
-    setSearch(e.target.value)
-    if (!search.trim()) {
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const searchValue = e.target.value;
+    setSearch(searchValue);
+    
+    if (!searchValue.trim()) {
       setFilteredResults(tenantData);
       return;
     }
-  
-    const results = tenantData.filter((items) =>
-      items.FullName.toLowerCase().includes(search.toLowerCase())
+
+    const results = tenantData.filter((item) =>
+      item.FullName.toLowerCase().includes(searchValue.toLowerCase())
     );
-  
     setFilteredResults(results);
-  }
+  };
 
   
 

@@ -29,7 +29,7 @@ import Image from "next/image";
 
 import { useState } from "react";
 import TableData from "./TableData";
-import Link from "next/link";
+
 
 interface Office {
   id: string;
@@ -51,6 +51,7 @@ const ManageOffice = () => {
     Floor: "",
     Status: "",
   });
+  const [open, setOpen] = useState(false);
 
   // Calculate pagination
   const totalItems = search ? filteredResults.length : tableData.length;
@@ -58,6 +59,21 @@ const ManageOffice = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentItems = (search ? filteredResults : tableData).slice(startIndex, endIndex);
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const searchValue = e.target.value;
+    setSearch(searchValue);
+    
+    if (!searchValue.trim()) {
+      setFilteredResults(tableData);
+      return;
+    }
+
+    const results = tableData.filter((item) =>
+      item.OfficeNO.toLowerCase().includes(searchValue.toLowerCase())
+    );
+    setFilteredResults(results);
+  };
 
   const handleEditClick = (office: Office) => {
     setEditOffice(office);
@@ -102,8 +118,6 @@ const ManageOffice = () => {
     setOpen(false);
   };
 
-  const [open, setOpen] = useState(false);
-
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
   };
@@ -134,6 +148,8 @@ const ManageOffice = () => {
                   outline: "none",
                   boxShadow: "none",
                 }}
+                value={search}
+                onChange={handleSearchChange}
               />
             </div>
             <div className="flex items-center gap-2">
